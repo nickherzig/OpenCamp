@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import Firebase
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -18,12 +19,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
+
 @main
 struct Open_CampApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
+            let authModel = AuthViewModel()
             ContentView()
+                .environmentObject(authModel)
         }
     }
 }
+

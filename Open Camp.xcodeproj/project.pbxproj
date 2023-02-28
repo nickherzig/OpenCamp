@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D409025299C6D5B00D0991D /* Open_CampApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409024299C6D5B00D0991D /* Open_CampApp.swift */; };
-		3D409027299C6D5B00D0991D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409026299C6D5B00D0991D /* ContentView.swift */; };
+		3D409027299C6D5B00D0991D /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409026299C6D5B00D0991D /* SignupView.swift */; };
 		3D409029299C6D5D00D0991D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D409028299C6D5D00D0991D /* Assets.xcassets */; };
 		3D40902C299C6D5D00D0991D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D40902B299C6D5D00D0991D /* Preview Assets.xcassets */; };
 		3D409036299C6D5D00D0991D /* Open_CampTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409035299C6D5D00D0991D /* Open_CampTests.swift */; };
@@ -22,6 +22,12 @@
 		3D40905A299C6EE100D0991D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D409059299C6EE100D0991D /* FirebaseFirestore */; };
 		3D40905C299C6EE100D0991D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3D40905B299C6EE100D0991D /* FirebaseFirestoreSwift */; };
 		3D40905E299C6EE100D0991D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3D40905D299C6EE100D0991D /* FirebaseStorage */; };
+		3DA0D17629AD766100F47ED6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D17529AD766100F47ED6 /* LoginView.swift */; };
+		3DA0D17A29AD87B700F47ED6 /* CampsiteTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D17929AD87B600F47ED6 /* CampsiteTrackingView.swift */; };
+		3DA0D17C29AD8CD300F47ED6 /* AddTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D17B29AD8CD300F47ED6 /* AddTrackerView.swift */; };
+		3DA0D17E29AD8D1F00F47ED6 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D17D29AD8D1F00F47ED6 /* AccountView.swift */; };
+		3DA0D18029AD8DA600F47ED6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D17F29AD8DA600F47ED6 /* MainView.swift */; };
+		3DA0D18329AD9FDA00F47ED6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA0D18229AD9FDA00F47ED6 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +50,7 @@
 /* Begin PBXFileReference section */
 		3D409021299C6D5B00D0991D /* Open Camp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Camp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D409024299C6D5B00D0991D /* Open_CampApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_CampApp.swift; sourceTree = "<group>"; };
-		3D409026299C6D5B00D0991D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3D409026299C6D5B00D0991D /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		3D409028299C6D5D00D0991D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D40902B299C6D5D00D0991D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3D409031299C6D5D00D0991D /* Open CampTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open CampTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +59,12 @@
 		3D40903F299C6D5D00D0991D /* Open_CampUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_CampUITests.swift; sourceTree = "<group>"; };
 		3D409041299C6D5D00D0991D /* Open_CampUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_CampUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3D40904E299C6DE600D0991D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3DA0D17529AD766100F47ED6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3DA0D17929AD87B600F47ED6 /* CampsiteTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampsiteTrackingView.swift; sourceTree = "<group>"; };
+		3DA0D17B29AD8CD300F47ED6 /* AddTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTrackerView.swift; sourceTree = "<group>"; };
+		3DA0D17D29AD8D1F00F47ED6 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		3DA0D17F29AD8DA600F47ED6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3DA0D18229AD9FDA00F47ED6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +106,7 @@
 				3D409034299C6D5D00D0991D /* Open CampTests */,
 				3D40903E299C6D5D00D0991D /* Open CampUITests */,
 				3D409022299C6D5B00D0991D /* Products */,
+				3DA0D18129AD98E400F47ED6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,7 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				3D409024299C6D5B00D0991D /* Open_CampApp.swift */,
-				3D409026299C6D5B00D0991D /* ContentView.swift */,
+				3DA0D18229AD9FDA00F47ED6 /* ContentView.swift */,
+				3DA0D17829AD85BB00F47ED6 /* MainViews */,
+				3DA0D17729AD85AE00F47ED6 /* Onboarding */,
 				3D409028299C6D5D00D0991D /* Assets.xcassets */,
 				3D40904E299C6DE600D0991D /* GoogleService-Info.plist */,
 				3D40902A299C6D5D00D0991D /* Preview Content */,
@@ -142,6 +157,33 @@
 				3D409041299C6D5D00D0991D /* Open_CampUITestsLaunchTests.swift */,
 			);
 			path = "Open CampUITests";
+			sourceTree = "<group>";
+		};
+		3DA0D17729AD85AE00F47ED6 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				3D409026299C6D5B00D0991D /* SignupView.swift */,
+				3DA0D17529AD766100F47ED6 /* LoginView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		3DA0D17829AD85BB00F47ED6 /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				3DA0D17929AD87B600F47ED6 /* CampsiteTrackingView.swift */,
+				3DA0D17B29AD8CD300F47ED6 /* AddTrackerView.swift */,
+				3DA0D17D29AD8D1F00F47ED6 /* AccountView.swift */,
+				3DA0D17F29AD8DA600F47ED6 /* MainView.swift */,
+			);
+			path = MainViews;
+			sourceTree = "<group>";
+		};
+		3DA0D18129AD98E400F47ED6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,7 +329,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D409027299C6D5B00D0991D /* ContentView.swift in Sources */,
+				3DA0D17E29AD8D1F00F47ED6 /* AccountView.swift in Sources */,
+				3DA0D18029AD8DA600F47ED6 /* MainView.swift in Sources */,
+				3DA0D18329AD9FDA00F47ED6 /* ContentView.swift in Sources */,
+				3D409027299C6D5B00D0991D /* SignupView.swift in Sources */,
+				3DA0D17C29AD8CD300F47ED6 /* AddTrackerView.swift in Sources */,
+				3DA0D17A29AD87B700F47ED6 /* CampsiteTrackingView.swift in Sources */,
+				3DA0D17629AD766100F47ED6 /* LoginView.swift in Sources */,
 				3D409025299C6D5B00D0991D /* Open_CampApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

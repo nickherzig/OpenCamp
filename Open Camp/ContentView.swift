@@ -2,52 +2,61 @@
 //  ContentView.swift
 //  Open Camp
 //
-//  Created by Nick Herzig on 2/14/23.
+//  Created by Nick Herzig on 2/27/23.
 //
 
 import SwiftUI
+import Firebase
 
-struct ContentView: View {
-    @State private var email = ""
-    @State private var password = ""
-    var body: some View {
-        ZStack{
-            Color("BackgroundColor")
-                .ignoresSafeArea()
-            VStack(){
-                Text("Open Camp")
-                    .foregroundColor(.white)
-                    .font(.system(size:40, weight: .bold))
-                    .offset(y: -100)
-                Text("Email")
-                    .frame(width: 350, alignment: .leading)
-                    .foregroundColor(.white)
-                    .font(.system(size:20))
-                TextField("", text: $email)
-                    .foregroundColor(.white)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Text("Password")
-                    .frame(width: 350, alignment: .leading)
-                    .foregroundColor(.white)
-                    .font(.system(size:20))
-                SecureField("", text: $email)
-                    .foregroundColor(.white)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button {
-                    //sign up
-                } label: {
-                    Text("Sign up")
-                        .bold()
-                        .frame(width: 200, height: 40)
-                        
-                }
-
+class AuthViewModel: ObservableObject{
+    let auth = Auth.auth()
+    
+    @Published var signedIn = false
+    
+    var isSignedIn: Bool {
+        return auth.currentUser != nil
+    }
+    
+    func register(email : String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
+            if error != nil {
+                print(error!.localizedDescription)
             }
-            .frame(width: 350)
-            
+            DispatchQueue.main.async {
+                self?.signedIn = true
+            }
+        }
+    }
+    
+    func signIn(email : String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            DispatchQueue.main.async {
+                self?.signedIn = true
+            }
         }
     }
 }
+
+struct ContentView: View {
+    @EnvironmentObject var authModel: AuthViewModel
+    var body: some View {
+        NavigationView {
+            if authModel.signedIn {
+                MainView()
+            }
+            else{
+                SignupView()
+            }
+            
+        }.onAppear{
+            authModel.signedIn = authModel.isSignedIn
+        }
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
