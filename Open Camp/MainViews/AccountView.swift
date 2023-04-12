@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AccountView: View {
+    @EnvironmentObject var campgroundModel: CampgroundHandler
     var body: some View {
         ZStack {
             Color("BackgroundColor")

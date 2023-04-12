@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct MainView: View {
+    let campgroundModel = CampgroundHandler()
+    let firebaseModel = FirebaseHandler()
     init() {
-          UITabBar.appearance().barTintColor = UIColor(Color("White"))
+        UITabBar.appearance().barTintColor = UIColor(Color(.white))
           UITabBar.appearance().backgroundColor = UIColor(Color("SecondaryColor"))
+        
        }
     
     var body: some View {
-        
             TabView {
-                CampsiteTrackingView()
+                CampsiteTrackingView(campgroundModel: campgroundModel, firebaseModel: firebaseModel)
                     .tabItem {
                         Image(systemName: "triangle.lefthalf.filled")
                         Text("Sites")
                         .foregroundColor(.white)
                     }
-                AddTrackerView()
+                AddTrackerView(campgroundModel: campgroundModel, firebaseModel: firebaseModel)
                     .tabItem {
                         Image(systemName: "plus")
                         Text("Add")

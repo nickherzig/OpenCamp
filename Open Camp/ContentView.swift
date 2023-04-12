@@ -10,7 +10,7 @@ import Firebase
 
 class AuthViewModel: ObservableObject{
     let auth = Auth.auth()
-    
+    @Published var errorMessage = ""
     @Published var signedIn = false
     
     var isSignedIn: Bool {
@@ -20,7 +20,8 @@ class AuthViewModel: ObservableObject{
     func register(email : String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             if error != nil {
-                print(error!.localizedDescription)
+                self?.errorMessage = error!.localizedDescription
+                return
             }
             DispatchQueue.main.async {
                 self?.signedIn = true
@@ -31,13 +32,34 @@ class AuthViewModel: ObservableObject{
     func signIn(email : String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             if error != nil {
-                print(error!.localizedDescription)
+                self?.errorMessage = error!.localizedDescription
+                return
             }
             DispatchQueue.main.async {
                 self?.signedIn = true
             }
         }
+        
     }
+    
+    func validateSignUpInfo(email : String, password : String, passwordConfirm : String) -> String{
+        let validPass = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+        if email.isEmpty || password.isEmpty || passwordConfirm.isEmpty {
+             return "Fields cannot be empty"
+        }
+        else if password != passwordConfirm {
+            return  "Passwords must match"
+        }
+        else if !validPass.evaluate(with: password){
+            return "Password must have at least 8 characters, 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number"
+        }
+        return ""
+    }
+    
+    func getErrorMessage() -> String {
+        return self.errorMessage
+    }
+    
 }
 
 struct ContentView: View {

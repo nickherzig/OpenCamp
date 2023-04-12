@@ -11,6 +11,7 @@ import Firebase
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var errorText = ""
     
     @EnvironmentObject var authModel: AuthViewModel
     
@@ -19,10 +20,13 @@ struct LoginView: View {
             Color("BackgroundColor")
                 .ignoresSafeArea()
             VStack(){
-                Text("Open Camp")
-                    .foregroundColor(.white)
-                    .font(.system(size:40, weight: .bold))
-                    .offset(y: -100)
+                Image("LogoBlack")
+                    .resizable()
+                    .frame(width: 250.0, height: 250.0)
+                Text("OpenCamp")
+                    .foregroundColor(.black)
+                    .font(.system(size:50, weight: .bold))
+                    .padding()
                 Text("Email")
                     .frame(width: 350, alignment: .leading)
                     .foregroundColor(.white)
@@ -41,19 +45,25 @@ struct LoginView: View {
                     .autocapitalization(.none)
                 Button {
                     guard !email.isEmpty, !password.isEmpty else {
+                        errorText = "Fields cannot be empty"
                         return
                     }
                     authModel.signIn(email: email, password: password)
+                    errorText = authModel.getErrorMessage()
                 } label: {
                     Text("Log In")
                 }
                 .buttonStyle(BorderedProminentButtonStyle())
                 .frame(width: 100, height: 20)
                 .padding()
+                Text(errorText)
+                    .frame(alignment: .center)
+                    .foregroundColor(.white)
+                    .font(.system(size:11))
+                    .multilineTextAlignment(.center)
 
             }
             .frame(width: 350)
-            
         }
     }
 }
