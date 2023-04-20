@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateTracker: View {
     let campground : Campground
     @ObservedObject var firebaseModel: FirebaseHandler
-    @State private var date : Date = Date()
+    @State private var date : Date = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!
     @State private var numNights : Int = 1
     @State private var errorMessage = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -23,7 +23,8 @@ struct CreateTracker: View {
     
     //accesses firebase firstone to add a tracker
     func addTracker(){
-        let id = firebaseModel.addTracker(campground: campground, date: date, numNights: numNights)
+        let dateCorrected = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: date)!
+        let id = firebaseModel.addTracker(campground: campground, date: dateCorrected, numNights: numNights)
         if id.isEmpty{
             errorMessage = "Unable to add tracker. Try again later."
         }

@@ -55,6 +55,7 @@ struct ViewTracker: View {
                     Text("Details:")
                         .foregroundColor(.white)
                         .frame(width: 350, alignment: .topLeading)
+                        .padding(.top, 10)
                     VStack{
                         Text(tracker.campground.recArea + " " + tracker.campground.state)
                             .font(.system(size:13))

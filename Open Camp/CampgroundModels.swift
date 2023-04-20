@@ -167,6 +167,7 @@ class CampgroundHandler: ObservableObject {
             }
             self.orderCampgrounds(query: query, campgrounds: searchedCampgroundsPh)
         }
+        
     }
 }
 
