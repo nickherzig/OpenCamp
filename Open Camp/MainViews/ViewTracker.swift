@@ -37,7 +37,7 @@ struct ViewTracker: View {
                     Text("Campground:")
                         .foregroundColor(.white)
                         .frame(width: 350, alignment: .topLeading)
-                        .padding()
+                        .padding(.top, 80)
                     Text(tracker.campground.name)
                         .foregroundColor(.black)
                         .frame(width: 350, height: 40)
