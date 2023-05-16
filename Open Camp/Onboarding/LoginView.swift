@@ -48,8 +48,10 @@ struct LoginView: View {
                         errorText = "Fields cannot be empty"
                         return
                     }
-                    authModel.signIn(email: email, password: password)
-                    errorText = authModel.getErrorMessage()
+                    authModel.signIn(email: email, password: password){
+                        errorText = authModel.getErrorMessage()
+                    }
+                    
                 } label: {
                     Text("Log In")
                 }

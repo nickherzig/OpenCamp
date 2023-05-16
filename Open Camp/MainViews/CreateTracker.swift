@@ -50,6 +50,7 @@ struct CreateTracker: View {
     var body: some View {
         
         ZStack {
+            
             Color("BackgroundColor")
                 .ignoresSafeArea()
             VStack{

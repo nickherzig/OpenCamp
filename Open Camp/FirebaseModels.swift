@@ -66,6 +66,20 @@ class FirebaseHandler : ObservableObject {
         }
     }
     
+    //Logs out current user
+    func logout() -> Bool {
+        do {
+            try auth.signOut()
+            self.reloadUser()
+            return true
+        }
+        catch{
+            print("Could not sign user out: \(error)")
+        }
+        return false
+    }
+    
+    //Gets all updated state info on the user
     func reloadUser(){
         auth.currentUser?.reload(completion: { (error) in
             if (error != nil){
@@ -74,6 +88,7 @@ class FirebaseHandler : ObservableObject {
         })
     }
     
+    //Sends an email verification to the current user's email
     func sendEmailVerification(){
         let user = self.auth.currentUser
         if user != nil && !user!.isEmailVerified {
@@ -91,6 +106,7 @@ class FirebaseHandler : ObservableObject {
     
     //Checks if user has verified their email
     func isVerified() -> Bool{
+        self.reloadUser()
         let user = self.auth.currentUser
         if user != nil{
             return user!.isEmailVerified

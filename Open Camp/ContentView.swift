@@ -17,10 +17,11 @@ class AuthViewModel: ObservableObject{
         return auth.currentUser != nil
     }
     
-    func register(email : String, password: String) {
+    func register(email : String, password: String, callbackHandler : @escaping () -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             if error != nil {
                 self?.errorMessage = error!.localizedDescription
+                callbackHandler()
                 return
             }
             DispatchQueue.main.async {
@@ -30,10 +31,11 @@ class AuthViewModel: ObservableObject{
         }
     }
     
-    func signIn(email : String, password: String) {
+    func signIn(email : String, password: String, callbackHandler : @escaping () -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             if error != nil {
                 self?.errorMessage = error!.localizedDescription
+                callbackHandler()
                 return
             }
             DispatchQueue.main.async {
@@ -44,16 +46,19 @@ class AuthViewModel: ObservableObject{
     }
     
     func sendEmailVerification(){
-        if (self.isSignedIn){
             if self.auth.currentUser != nil && !self.auth.currentUser!.isEmailVerified {
                 self.auth.currentUser?.sendEmailVerification(completion: { (error) in
+                    if error != nil {
                         print("Unable to send email verification")
+                    }
+                    else{
+                        print("Email verification sent")
+                    }
                     })
                 }
-                else {
-                    print("Unable to send email verification")
-                }
-        }
+            else {
+                print("Unable to send email verification")
+            }
     }
     
     func validateSignUpInfo(email : String, password : String, passwordConfirm : String) -> String{

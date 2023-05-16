@@ -57,8 +57,10 @@ struct SignupView: View {
                 Button {
                     errorText = authModel.validateSignUpInfo(email: email, password: password, passwordConfirm: passwordConfirm)
                     if errorText.isEmpty{
-                        authModel.register(email: email, password: password)
-                        errorText = authModel.getErrorMessage()
+                        authModel.register(email: email, password: password) {
+                            errorText = authModel.getErrorMessage()
+                        }
+                        
                     }
                     
                 } label: {
