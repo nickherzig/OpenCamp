@@ -18,7 +18,7 @@ struct ViewTracker: View {
         let err = firebaseModel.deleteTracker(trackerId: tracker.id!)
         if err.isEmpty{
             //updates the currently tracking page
-            firebaseModel.getTrackers(isActive: 1)
+            firebaseModel.getTrackers(isActive: true)
             //returns to AddTrackerView
             self.presentationMode.wrappedValue.dismiss()
         }

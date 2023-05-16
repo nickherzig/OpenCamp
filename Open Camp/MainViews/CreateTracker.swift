@@ -34,10 +34,14 @@ struct CreateTracker: View {
         else if id == "duplicate_tracker"{
             errorMessage = "You already have a tracker with these specifications"
         }
+        else if id == "not_verified"{
+            errorMessage = "You must verify your email before you can make a tracker"
+        }
+        
         else{
             print("Tracker ID: " + id)
             //updates the currently tracking page
-            firebaseModel.getTrackers(isActive: 1)
+            firebaseModel.getTrackers(isActive: true)
             //returns to AddTrackerView
             self.presentationMode.wrappedValue.dismiss()
         }

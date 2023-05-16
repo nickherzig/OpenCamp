@@ -25,14 +25,21 @@ struct Tracker: Codable, Identifiable {
 
 
 class FirebaseHandler : ObservableObject {
-    let user = Auth.auth().currentUser
+    let auth = Auth.auth()
     let db = Firestore.firestore()
     @Published var userActiveTrackers : [Tracker] = []
+    @Published var userInactiveTrackers : [Tracker] = []
+    
     
     //Adds a tracker struct to firestore
     func addTracker(campground : Campground, date : Date, numNights : Int) -> String{
+        let user = auth.currentUser
         if user == nil{
             return ""
+        }
+        
+        if (!self.isVerified()){
+            return "not_verified"
         }
         
         //Checks if user has too many trackers
@@ -59,13 +66,46 @@ class FirebaseHandler : ObservableObject {
         }
     }
     
+    func reloadUser(){
+        auth.currentUser?.reload(completion: { (error) in
+            if (error != nil){
+                print(error?.localizedDescription ?? "error")
+            }
+        })
+    }
+    
+    func sendEmailVerification(){
+        let user = self.auth.currentUser
+        if user != nil && !user!.isEmailVerified {
+            user?.sendEmailVerification(completion: { (error) in
+                if (error != nil){
+                    print(error?.localizedDescription ?? "error")
+                }
+            })
+        }
+        else {
+            print("Unable to send email verification")
+        }
+        
+    }
+    
+    //Checks if user has verified their email
+    func isVerified() -> Bool{
+        let user = self.auth.currentUser
+        if user != nil{
+            return user!.isEmailVerified
+        }
+        return false
+    }
+    
     //sets userActiveTrackers list
-    func getTrackers(isActive : Int){
+    func getTrackers(isActive : Bool){
+        let user = self.auth.currentUser
         if user == nil{
             return
         }
-        var userActiveTrackersPh : [Tracker] = []
-        db.collection("trackers").whereField("userId", isEqualTo: user!.uid).whereField("active", isEqualTo: true).getDocuments() { (querySnapshot, err) in
+        var userTrackersPh : [Tracker] = []
+        db.collection("trackers").whereField("userId", isEqualTo: user!.uid).whereField("active", isEqualTo: isActive).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting tackers: \(err)")
             }
@@ -74,12 +114,19 @@ class FirebaseHandler : ObservableObject {
                 for document in querySnapshot!.documents{
                     do{
                         tracker = try document.data(as: Tracker.self)
-                        userActiveTrackersPh.append(tracker)
+                        userTrackersPh.append(tracker)
                     } catch {
                         print(error)
                       }
                 }
-                self.userActiveTrackers = (userActiveTrackersPh.sorted{$0.startDate < $1.startDate}).map{ $0 }
+                if (isActive){
+                    self.userActiveTrackers = (userTrackersPh.sorted{$0.startDate < $1.startDate}).map{ $0 }
+                }
+                else {
+                    self.userInactiveTrackers = (userTrackersPh.sorted{$0.startDate < $1.startDate}).map{ $0 }
+                }
+                
+                
             }
         }
     }
@@ -87,6 +134,7 @@ class FirebaseHandler : ObservableObject {
     //deletes tracker with given trackerId
     func deleteTracker(trackerId : String) -> String {
         var retValue = ""
+        let user = self.auth.currentUser
         if user == nil {
             return "error"
         }

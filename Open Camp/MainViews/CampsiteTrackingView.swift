@@ -11,10 +11,12 @@ struct CampsiteTrackingView: View {
     @ObservedObject var campgroundModel: CampgroundHandler
     @ObservedObject var firebaseModel: FirebaseHandler
     
+    
     init (campgroundModel: CampgroundHandler, firebaseModel: FirebaseHandler){
         self.campgroundModel = campgroundModel
         self.firebaseModel = firebaseModel
-        firebaseModel.getTrackers(isActive: 1)
+        firebaseModel.getTrackers(isActive: true)
+        firebaseModel.reloadUser()
     }
     
     var body: some View {
@@ -28,10 +30,18 @@ struct CampsiteTrackingView: View {
                     .foregroundColor(.white)
                     .frame(width: 350, alignment: .topLeading)
                     .padding()
-                if (firebaseModel.userActiveTrackers.isEmpty){
+                if (firebaseModel.userActiveTrackers.isEmpty && firebaseModel.isVerified()){
                     Text("You are not currently tracking any campsites")
                         .font(.system(size:15))
                         .frame(width: 300, height: 60, alignment: .center)
+                        .font(.system(size: 20, weight: .bold))
+                        .background(Color("SecondaryColor"), in: RoundedRectangle(cornerRadius: 20))
+                        .multilineTextAlignment(.center)
+                }
+                if (!firebaseModel.isVerified()){
+                    Text("You must verify your email to create and view trackers. Visit account page to resend email")
+                        .font(.system(size:15))
+                        .frame(width: 320, height: 80, alignment: .center)
                         .font(.system(size: 20, weight: .bold))
                         .background(Color("SecondaryColor"), in: RoundedRectangle(cornerRadius: 20))
                         .multilineTextAlignment(.center)

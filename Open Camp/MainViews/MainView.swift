@@ -29,7 +29,7 @@ struct MainView: View {
                         Image(systemName: "plus")
                         Text("Add")
                     }
-                AccountView()
+                AccountView(firebaseModel: firebaseModel)
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Account")

@@ -12,18 +12,18 @@ from dotenv import load_dotenv
 from email.message import EmailMessage
 import ssl
 
+load_dotenv()
 
-#initializes firestore credentials
+# Initializes firestore credentials
 cred = credentials.Certificate("./opencamp-b9298-e050bd58c08f.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-load_dotenv()
-
+# Global variables
 MAX_MONTHS = 6
 EMAIL_ACCOUNT = "opencamp.app@gmail.com"
 
-# Handles read/write to the opencamp firestore database
+# Handles read/write to the OpenCamp firestore database
 class FirestoreModel:
     def __init__(self):
         #initializes database
@@ -59,14 +59,16 @@ class EmailModel:
         self.context = ssl.create_default_context()
         self.smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465, context=self.context)
     
-    #returns true on successful login, false on failure
+    # Returns true on successful login, false on failure
     def login(self):
         try:
             self.smtp.login(self.email_sender, self.email_password)
             return True
         except:
             return False
-        
+
+    # Accepts an EmailMessage object and the recievers email.
+    # Returns True on success, False on failure    
     def send_email(self, email_object, reciever):
         try:
             self.smtp.sendmail(self.email_sender, reciever, email_object.as_string())
@@ -84,13 +86,13 @@ class EmailModel:
 
         return em
         
-#returns availability for a given campground for 7 months in dicitonary form. Key is month, value is availability for all sites
-#Accesses rec.gov api
+# Returns availability for a given campground-id for 7 months in dicitonary form. Key is month, value is availability for all sites
+# Accesses rec.gov api
 def get_availability(id):
     availability_dict = {}
     date = datetime.datetime.now()
 
-    #grabs campground availability for 7 months. All trackers will fall under this range
+    # Grabs campground availability for 7 months. All trackers will fall under this range
     for i in range(MAX_MONTHS + 1):
         url = 'https://www.recreation.gov/api/camps/availability/campground/{}/month?start_date={}-{}-01T00%3A00%3A00.000Z'.format(id, date.year, date.strftime("%m"))
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -134,7 +136,7 @@ def create_email_body(availableSites, tracker):
         return(body + campsites + link)
 
 
-def main():
+def main(event, context):
     firestore_model = FirestoreModel()
     email_model = EmailModel()
     if (not email_model.login()):
@@ -163,10 +165,8 @@ def main():
                     body = create_email_body(available_sites, tracker)
                     subject = "Campsites available at {} on {}".format(tracker["campground"]["name"], tracker["startDate"].strftime("%Y-%m-%d"), tracker["numNights"])
                     email_model.send_email(email_model.create_email_object(subject, body, tracker["userEmail"]), tracker["userEmail"])
-                    # firestore_model.update_tracker(tracker["id"], [{"active": False}, {"success": True}])
+                    firestore_model.update_tracker(tracker["id"], [{"active": False}, {"success": True}])
                 else:
                     print("No sites are available at this time")
 
-
-main()
                 

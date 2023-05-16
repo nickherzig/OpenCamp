@@ -25,6 +25,7 @@ class AuthViewModel: ObservableObject{
             }
             DispatchQueue.main.async {
                 self?.signedIn = true
+                self?.sendEmailVerification()
             }
         }
     }
@@ -40,6 +41,19 @@ class AuthViewModel: ObservableObject{
             }
         }
         
+    }
+    
+    func sendEmailVerification(){
+        if (self.isSignedIn){
+            if self.auth.currentUser != nil && !self.auth.currentUser!.isEmailVerified {
+                self.auth.currentUser?.sendEmailVerification(completion: { (error) in
+                        print("Unable to send email verification")
+                    })
+                }
+                else {
+                    print("Unable to send email verification")
+                }
+        }
     }
     
     func validateSignUpInfo(email : String, password : String, passwordConfirm : String) -> String{
