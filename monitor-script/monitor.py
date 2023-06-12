@@ -21,7 +21,7 @@ db = firestore.client()
 
 # Global variables
 MAX_MONTHS = 6
-EMAIL_ACCOUNT = "opencamp.app@gmail.com"
+EMAIL_ACCOUNT = os.getenv("EMAIL_ACCOUNT")
 
 # Handles read/write to the OpenCamp firestore database
 class FirestoreModel:
